@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Random;
 
 /**
@@ -43,10 +45,12 @@ public class BadIOGUI {
         canvas.add(write, BorderLayout.CENTER);
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        final JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-        canvas.add(panel, BorderLayout.CENTER);
-        panel.add(write);
+        final JPanel inner = new JPanel();
+        inner.setLayout(new BoxLayout(inner, BoxLayout.X_AXIS));
+        canvas.add(inner, BorderLayout.CENTER);
+        inner.add(write);
+        final JButton read = new JButton("Read");
+        inner.add(read);
 
         /*
          * Handlers
@@ -66,6 +70,20 @@ public class BadIOGUI {
                 } catch (IOException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace(); // NOPMD: allowed as this is just an exercise
+                }
+            }
+        });
+
+        read.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                try {
+                    for (final String line : Files.readAllLines(Path.of(PATH), StandardCharsets.UTF_8)) {
+                        System.out.println(line); // NOPMD: allowed as this is just an exercise
+                    }
+                } catch (IOException e2) {
+                    JOptionPane.showMessageDialog(frame, e2, "Error", JOptionPane.ERROR_MESSAGE);
+                    e2.printStackTrace(); // NOPMD: allowed as this is just an exercise
                 }
             }
         });
