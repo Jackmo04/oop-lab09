@@ -23,7 +23,7 @@ public final class SimpleGUI {
     private final Controller controller = new Controller();
 
     /**
-     * Create a new SimpleGUI
+     * Create a new SimpleGUI.
      */
     public SimpleGUI() {
         final JPanel canvas = new JPanel();
@@ -40,7 +40,7 @@ public final class SimpleGUI {
          */
         save.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 try {
                     controller.writeToFile(textArea.getText());
                 } catch (IOException e1) {
@@ -60,7 +60,7 @@ public final class SimpleGUI {
     }
 
     /**
-     * Launch the application
+     * Launch the application.
      * 
      * @param args unused
      */
